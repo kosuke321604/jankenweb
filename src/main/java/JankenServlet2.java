@@ -33,9 +33,23 @@ public class JankenServlet2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/index.jsp");
-		dispatcher.forward(request, response);
-
+		String action = request.getParameter("paramemo");
+		if(action==null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/index.jsp");
+			dispatcher.forward(request, response);
+	
+		}
+		else if(action.equals("done")){
+			String memo = request.getParameter("memo");
+			JankenBean jankenBean = new JankenBean(memo);
+			JankenLogic jankenLogic = new JankenLogic();
+			jankenLogic.creatememo(jankenBean);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/index.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		
 	}
 
 	/**

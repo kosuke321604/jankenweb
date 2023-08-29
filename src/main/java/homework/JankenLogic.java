@@ -42,6 +42,7 @@ public class JankenLogic {
 	    
 	    String myselfResultName=pattern.get(myselfResult);
     	String pcResultName=pattern.get(pcResult);
+    	
 
 		JankenBean jankenBean = new JankenBean(myselfResultName,pcResultName,result);
 	
@@ -59,6 +60,13 @@ public class JankenLogic {
 	public List<JankenBean> findAll(){
 		ResultDAO dao = new ResultDAO();
 		return dao.findAll();
+		
+	}
+	
+	public void creatememo(JankenBean jankenBean) {
+		ResultDAO dao = new ResultDAO();
+		dao.creatememo(jankenBean);
+		
 		
 	}
 

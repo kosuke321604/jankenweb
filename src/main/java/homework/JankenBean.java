@@ -6,11 +6,13 @@ import java.io.Serializable;
 
 
 public class JankenBean implements Serializable{
+	
 	private int myselfResult;
 	private int pcResult;
 	private String result;
 	private String myselfResultName;
 	private String pcResultName;
+	private String memo;
 	
 //	 List<String>resultPast = new ArrayList<String>();
 	
@@ -20,6 +22,16 @@ public class JankenBean implements Serializable{
 		this.myselfResultName = myselfResultName;
 		this.pcResultName = pcResultName;
 		this.result = result;
+	}
+	public JankenBean(String myselfResultName,String pcResultName,String result,String memo) {
+		;
+		this.myselfResultName = myselfResultName;
+		this.pcResultName = pcResultName;
+		this.result = result;
+		this.memo = memo;
+	}
+	public JankenBean(String memo) {
+		this.memo = memo;
 	}
 	
 	
@@ -33,6 +45,8 @@ public class JankenBean implements Serializable{
 	public void setPcResult(int pcResult) {this.pcResult = pcResult;}
 	public String getResult() {return result;}
 	public void setResult(String result) {this.result = result;	}
+	public String getMemo() {return memo;}
+	public void setMemo(String memo) {this.memo = memo;	}
 	
 //	public List<String> getResultPast() {return resultPast;	}
 //	public void addResultPast(List<String> resultPast) {this.resultPast = resultPast;}

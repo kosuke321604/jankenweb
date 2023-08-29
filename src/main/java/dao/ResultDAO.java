@@ -32,17 +32,19 @@ public class ResultDAO {
 			 throw new IllegalStateException("JDBCドライバを読み込ませんでした");
 		 }
 		 try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER,DB_PASS)){
-			 String sql = "SELECT id,myselfname,pcname,result FROM jankenresult ORDER BY id DESC";
+			 String sql = "SELECT id,myselfname,pcname,result,memo FROM jankenresult ORDER BY id DESC";
 //			 System.out.println("データベース接続成功");
 			 PreparedStatement pStmt = conn.prepareStatement(sql);
 			 ResultSet rs = pStmt.executeQuery();
+			 
 			 
 			 while(rs.next()) {
 				 int id = rs.getInt("id");
 				 String myselfResultName = rs.getString("myselfname"); 
 				 String pcResultName = rs.getString("pcname");
 				 String result= rs.getString("result");
-				 JankenBean jankenbean = new JankenBean(myselfResultName,pcResultName,result);
+				 String memo =rs.getString("memo");
+				 JankenBean jankenbean = new JankenBean(myselfResultName,pcResultName,result,memo);
 				 jankenList.add(jankenbean);
 			 }
 		 }catch(SQLException e) {
@@ -84,7 +86,36 @@ public class ResultDAO {
 		
 		return true;
 	}
+	
+	public boolean creatememo(JankenBean jankenbean) {
+		try {
+			 Class.forName("com.mysql.cj.jdbc.Driver");
+			 
+		 }catch(ClassNotFoundException e) {
+			 throw new IllegalStateException("JDBCドライバを読み込ませんでした");
+		 }
+		try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER,DB_PASS)){
+//			System.out.println("データベース接続成功"); 
+			String sql = "INSERT INTO jankenresult(memo) VALUE(?)";
+			 PreparedStatement pStmt = conn.prepareStatement(sql);
+			 pStmt.setString(1,jankenbean.getMemo());
+			 
+			 int re = pStmt.executeUpdate();			 
+			 
+			 if (re !=1) {
+				 return false;
+			 }
+			 
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+			 return false;
+			 
+		 }
 		
+		return true;
+	}
+	
+	
 	
 
 }

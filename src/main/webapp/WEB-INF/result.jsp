@@ -19,6 +19,11 @@ List<JankenBean> jankenList = (List<JankenBean>) request.getAttribute("jankenLis
 <ul>
 <% for(JankenBean a:jankenList){ %>
    <li> 自分の手は<%= a.getMyselfResultName() %>です,PCの手は<%=a.getPcResultName() %>です,勝敗は<%= a.getResult() %>です
+   
+<form action="JankenServlet2" method="get">
+<input type="hidden" name="paramemo" value="done">
+<input type="text" name="memo"value="<%= a.getMemo() %>" ></input> <input type="submit" value="保存" />
+</form>
 </li><% } %>
 
 </ul>
